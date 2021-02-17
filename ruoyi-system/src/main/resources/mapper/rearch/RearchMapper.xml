@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.RearchMapper">
+
+    <resultMap type="Rearch" id="rearchMap">
+        <id     property="rearchId"    column="rearch_id"   />
+        <result property="studentId"   column="student_id"  />
+        <result property="studentName" column="student_name"/>
+        <result property="skill"       column="skill"       />
+        <result property="studentDesc" column="student_desc"/>
+        <result property="status"      column="status"      />
+        <result property="isDelete"    column="is_delete"   />
+        <result property="createBy"    column="create_by"   />
+        <result property="createTime"  column="create_time" />
+        <result property="updateBy"    column="update_by"   />
+        <result property="updateTime"  column="update_time" />
+    </resultMap>
+
+    <sql id="baseColumn">
+        t.rearch_id,
+        t.student_id,
+        t.student_name,
+        t.student_major,
+        t.student_phone,
+        t.student_email,
+        t.skill,
+        t.student_desc,
+        t.status,
+        t.is_delete,
+        t.create_by,
+        t.create_time,
+        t.update_by,
+        t.update_time
+    </sql>
+
+    <insert id="addRearch" parameterType="Rearch">
+        insert into rearch_info(student_id,student_name,student_major,student_phone,student_email,skill,student_desc,status,is_delete,create_by,create_time)
+        values (#{studentId},#{studentName},#{studentMajor},#{studentPhone},#{studentEmail},#{skill},#{studentDesc},'0','0',#{createBy},sysdate())
+    </insert>
+
+    <select id="selectRearchList" parameterType="Rearch" resultMap="rearchMap">
+        select <include refid="baseColumn"/>
+        from rearch_info t
+        <where>
+            <choose>
+                <when test="isDelete != '' and isDelete != null ">
+                    and t.is_delete = #{isDelete}
+                </when>
+                <otherwise>
+                    and t.is_delete = 0
+                </otherwise>
+            </choose>
+            <if test="isDelete != '' and isDelete != null ">
+                and t.is_delete = #{isDelete}
+            </if>
+            <if test="rearchId != '' and rearchId != null ">
+                and t.rearch_id = #{rearchId}
+            </if>
+            <if test="studentName != '' and studentName != null ">
+                and t.student_name = #{studentName}
+            </if>
+        </where>
+    </select>
+
+<!--    <select id="selectTaskById" parameterType="String" resultMap="taskMap">-->
+<!--        select <include refid="baseColumn"/>-->
+<!--        from task_info t-->
+<!--        where t.task_id = #{taskId}-->
+<!--    </select>-->
+
+
+
+<!--    <update id="updateTaskById" parameterType="Task">-->
+<!--        update task_info-->
+<!--        set task_name = #{taskName},task_type = #{taskType},task_num = #{taskNum},task_desc = #{taskDesc},status = #{status},update_by = #{updateBy},update_time = sysdate()-->
+<!--        where task_id = #{taskId}-->
+<!--    </update>-->
+
+<!--    <update id="changeStatusById" parameterType="Task">-->
+<!--        update task_info-->
+<!--        set status = #{status},update_by = #{updateBy},update_time = sysdate()-->
+<!--        where task_id = #{taskId}-->
+<!--    </update>-->
+
+<!--    <delete id="deleteTaskById" parameterType="Long">-->
+<!--        update task_info-->
+<!--        set is_delete = 1-->
+<!--        where task_id = #{taskId}-->
+<!--    </delete>-->
+
+<!--    <delete id="deleteTaskByIds" parameterType="Long">-->
+<!--        update task_info-->
+<!--        set is_delete = 1-->
+<!--        where task_id in-->
+<!--        <foreach collection="array" item="taskId" open="(" separator="," close=")">-->
+<!--            #{taskId}-->
+<!--        </foreach>-->
+<!--    </delete>-->
+</mapper>
