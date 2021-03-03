@@ -2,6 +2,9 @@ package com.ruoyi.system.domain;
 
 import com.ruoyi.common.core.domain.BaseEntity;
 
+/**
+ * 助研信息实体类
+ */
 public class Rearch extends BaseEntity {
     /**
      * 助研信息id
