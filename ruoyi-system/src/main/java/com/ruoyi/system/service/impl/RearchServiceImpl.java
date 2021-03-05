@@ -20,7 +20,7 @@ public class RearchServiceImpl implements IRearchService {
      */
     @Override
     public List<Rearch> selectRearchList(Rearch rearch) {
-        return null;
+        return rearchMapper.selectRearchList(rearch);
     }
 
     /**

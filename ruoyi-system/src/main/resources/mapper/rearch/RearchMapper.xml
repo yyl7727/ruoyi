@@ -5,17 +5,20 @@
 <mapper namespace="com.ruoyi.system.mapper.RearchMapper">
 
     <resultMap type="Rearch" id="rearchMap">
-        <id     property="rearchId"    column="rearch_id"   />
-        <result property="studentId"   column="student_id"  />
+        <id property="rearchId" column="rearch_id"/>
+        <result property="studentId" column="student_id"/>
         <result property="studentName" column="student_name"/>
-        <result property="skill"       column="skill"       />
+        <result property="studentMajor" column="student_Major"/>
+        <result property="studentPhone" column="student_phone"/>
+        <result property="studentEmail" column="student_email"/>
+        <result property="skill" column="skill"/>
         <result property="studentDesc" column="student_desc"/>
-        <result property="status"      column="status"      />
-        <result property="isDelete"    column="is_delete"   />
-        <result property="createBy"    column="create_by"   />
-        <result property="createTime"  column="create_time" />
-        <result property="updateBy"    column="update_by"   />
-        <result property="updateTime"  column="update_time" />
+        <result property="status" column="status"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
     </resultMap>
 
     <sql id="baseColumn">
@@ -52,14 +55,11 @@
                     and t.is_delete = 0
                 </otherwise>
             </choose>
-            <if test="isDelete != '' and isDelete != null ">
-                and t.is_delete = #{isDelete}
-            </if>
-            <if test="rearchId != '' and rearchId != null ">
-                and t.rearch_id = #{rearchId}
-            </if>
             <if test="studentName != '' and studentName != null ">
                 and t.student_name = #{studentName}
+            </if>
+            <if test="studentMajor != '' and studentMajor != null ">
+                and t.student_major = #{studentMajor}
             </if>
         </where>
     </select>
