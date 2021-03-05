@@ -29,6 +29,11 @@ public class TaskController extends BaseController {
         return getDataTable(list);
     }
 
+    @GetMapping("/list/{userId}")
+    public AjaxResult listByUserId(@PathVariable String userId) {
+        return AjaxResult.success(taskService.selectTaskByUserId(userId));
+    }
+
     @GetMapping("getTask/{taskId}")
     public AjaxResult getTaskInfo(@PathVariable String taskId) {
         return AjaxResult.success(taskService.selectTaskById(taskId));

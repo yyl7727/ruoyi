@@ -53,4 +53,11 @@ public interface ITaskService {
      * @return
      */
     int deleteTaskByIds(Long[] taskIds);
+
+    /**
+     * 根据用户名获取课题列表
+     * @param userId
+     * @return
+     */
+    List<Task> selectTaskByUserId(String userId);
 }

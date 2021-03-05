@@ -72,4 +72,16 @@ public class TaskServiceImpl implements ITaskService {
     public int deleteTaskByIds(Long[] taskIds) {
         return taskMapper.deleteTaskByIds(taskIds);
     }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Task> selectTaskByUserId(String userId) {
+        Task task = new Task();
+        task.setCreateBy(userId);
+        return taskMapper.selectTaskList(task);
+    }
 }

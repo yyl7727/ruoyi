@@ -18,4 +18,11 @@ public interface IRearchService {
      * @return
      */
     int addRearch(Rearch rearch);
+
+    /**
+     * 根据用户id获取助研信息
+     * @param userId
+     * @return
+     */
+    List<Rearch> selectRearchListByUserId(String userId);
 }

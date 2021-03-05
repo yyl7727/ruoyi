@@ -32,4 +32,9 @@ public class RearchServiceImpl implements IRearchService {
     public int addRearch(Rearch rearch) {
         return rearchMapper.addRearch(rearch);
     }
+
+    @Override
+    public List<Rearch> selectRearchListByUserId(String userId) {
+        return null;
+    }
 }
