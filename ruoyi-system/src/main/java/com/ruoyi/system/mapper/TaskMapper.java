@@ -1,6 +1,7 @@
 package com.ruoyi.system.mapper;
 
 import com.ruoyi.system.domain.Task;
+import com.ruoyi.system.domain.TaskMember;
 
 import java.util.List;
 
@@ -53,4 +54,11 @@ public interface TaskMapper {
      * @return
      */
     int deleteTaskByIds(Long[] taskId);
+
+    /**
+     * 邀请学生加入课题
+     * @param taskMember
+     * @return
+     */
+    int inviteIntoTask(TaskMember taskMember);
 }

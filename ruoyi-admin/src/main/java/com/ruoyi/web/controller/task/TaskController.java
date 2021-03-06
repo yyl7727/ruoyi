@@ -7,6 +7,7 @@ import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.system.domain.Task;
+import com.ruoyi.system.domain.TaskMember;
 import com.ruoyi.system.service.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -70,5 +71,11 @@ public class TaskController extends BaseController {
     @Log(title = "课题管理", businessType = BusinessType.DELETE)
     public AjaxResult deleteTaskById(@RequestBody Long taskId) {
         return toAjax(taskService.deleteTaskById(taskId));
+    }
+
+    @PostMapping("/invite")
+    public AjaxResult inviteIntoTask(@RequestBody TaskMember taskMember) {
+        taskMember.setCreateBy(SecurityUtils.getUsername());
+        return toAjax(taskService.inviteIntoTask(taskMember));
     }
 }

@@ -1,6 +1,7 @@
 package com.ruoyi.system.service.impl;
 
 import com.ruoyi.system.domain.Task;
+import com.ruoyi.system.domain.TaskMember;
 import com.ruoyi.system.mapper.TaskMapper;
 import com.ruoyi.system.service.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,5 +84,10 @@ public class TaskServiceImpl implements ITaskService {
         Task task = new Task();
         task.setCreateBy(userId);
         return taskMapper.selectTaskList(task);
+    }
+
+    @Override
+    public int inviteIntoTask(TaskMember taskMember) {
+        return taskMapper.inviteIntoTask(taskMember);
     }
 }

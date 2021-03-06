@@ -99,4 +99,8 @@
             #{taskId}
         </foreach>
     </delete>
+
+    <insert id="inviteIntoTask" parameterType="TaskMember">
+        insert into task_member(task_id, student_username, status, is_delete, create_by, create_time) values(#{taskId}, #{studentUserName}, '0', '0', #{createBy}, sysdate())
+    </insert>
 </mapper>

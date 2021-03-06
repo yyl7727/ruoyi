@@ -1,6 +1,7 @@
 package com.ruoyi.system.service;
 
 import com.ruoyi.system.domain.Task;
+import com.ruoyi.system.domain.TaskMember;
 
 import java.util.List;
 
@@ -60,4 +61,11 @@ public interface ITaskService {
      * @return
      */
     List<Task> selectTaskByUserId(String userId);
+
+    /**
+     * 邀请学生加入课题
+     * @param taskMember
+     * @return
+     */
+    int inviteIntoTask(TaskMember taskMember);
 }
