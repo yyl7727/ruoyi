@@ -89,4 +89,6 @@ public class SysNoticeController extends BaseController
     {
         return toAjax(noticeService.deleteNoticeByIds(noticeIds));
     }
+
+    //todo   在这里写站内信相关功能！！！！
 }
