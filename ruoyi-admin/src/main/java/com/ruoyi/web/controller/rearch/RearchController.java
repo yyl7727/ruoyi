@@ -87,9 +87,4 @@ public class RearchController extends BaseController {
         startPage();
         return getDataTable(rearchList);
     }
-
-    @GetMapping("/info/{userId}")
-    public AjaxResult listByUserId(@PathVariable String userId) {
-        return null;
-    }
 }

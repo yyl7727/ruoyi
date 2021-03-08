@@ -1,5 +1,6 @@
 package com.ruoyi.system.service.impl;
 
+import com.ruoyi.system.domain.SysNotice;
 import com.ruoyi.system.domain.Task;
 import com.ruoyi.system.domain.TaskMember;
 import com.ruoyi.system.mapper.TaskMapper;
@@ -89,5 +90,16 @@ public class TaskServiceImpl implements ITaskService {
     @Override
     public int inviteIntoTask(TaskMember taskMember) {
         return taskMapper.inviteIntoTask(taskMember);
+    }
+
+    /**
+     * 发送邀请信息
+     * @param createBy
+     * @return
+     */
+    private boolean sendInviteNotice(String createBy) {
+        SysNotice sysNotice = new SysNotice();
+        sysNotice.setNoticeTitle("课题邀请加入信息");
+        return true;
     }
 }

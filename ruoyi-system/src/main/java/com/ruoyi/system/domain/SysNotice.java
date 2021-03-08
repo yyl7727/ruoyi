@@ -8,27 +8,41 @@ import com.ruoyi.common.core.domain.BaseEntity;
 
 /**
  * 通知公告表 sys_notice
- * 
- * @author ruoyi
+ * @author zxy
  */
 public class SysNotice extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
-    /** 公告ID */
+    /**
+     * 公告ID
+     */
     private Long noticeId;
 
-    /** 公告标题 */
+    /**
+     * 公告标题
+     */
     private String noticeTitle;
 
-    /** 公告类型（1通知 2公告） */
+    /**
+     * 公告类型
+     */
     private String noticeType;
 
-    /** 公告内容 */
+    /**
+     * 公告内容
+     */
     private String noticeContent;
 
-    /** 公告状态（0正常 1关闭） */
+    /**
+     * 公告状态（0正常 1关闭）
+     */
     private String status;
+
+    /**
+     * 是否已读（0未读 1已读）
+     */
+    private String isRead;
 
     public Long getNoticeId()
     {
@@ -82,6 +96,14 @@ public class SysNotice extends BaseEntity
         return status;
     }
 
+    public String getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(String isRead) {
+        this.isRead = isRead;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -90,6 +112,7 @@ public class SysNotice extends BaseEntity
             .append("noticeType", getNoticeType())
             .append("noticeContent", getNoticeContent())
             .append("status", getStatus())
+            .append("isRead", getIsRead())
             .append("createBy", getCreateBy())
             .append("createTime", getCreateTime())
             .append("updateBy", getUpdateBy())
