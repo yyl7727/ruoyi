@@ -6,9 +6,12 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.SecurityUtils;
+import com.ruoyi.system.domain.SysNotice;
 import com.ruoyi.system.domain.Task;
 import com.ruoyi.system.domain.TaskMember;
 import com.ruoyi.system.service.ITaskService;
+import com.sun.javafx.tk.Toolkit;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -79,6 +82,13 @@ public class TaskController extends BaseController {
 
     @PostMapping("/invite")
     public AjaxResult inviteIntoTask(@RequestBody TaskMember taskMember) {
+        SysNotice notice = new SysNotice();
+        notice.setNoticeTitle("课题加入邀请");
+
+        //获取通知内容所需的必要信息
+        Task task = taskService.selectTaskById(taskMember.getTaskId());
+        notice.setNoticeContent("");
+
         taskMember.setCreateBy(SecurityUtils.getUsername());
         return toAjax(taskService.inviteIntoTask(taskMember));
     }

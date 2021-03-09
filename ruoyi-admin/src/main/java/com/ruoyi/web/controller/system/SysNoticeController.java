@@ -23,7 +23,7 @@ import com.ruoyi.system.service.ISysNoticeService;
 
 /**
  * 公告 信息操作处理
- * 
+ *
  * @author zxy
  */
 @RestController
@@ -63,6 +63,9 @@ public class SysNoticeController extends BaseController
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysNotice notice)
     {
+        if ("4".equals(notice.getNoticeType()) || "5".equals(notice.getNoticeType())){
+            return AjaxResult.error("只能由对应功能发出申请信息或邀请信息，请选择其他公告类型！");
+        }
         notice.setCreateBy(SecurityUtils.getUsername());
         return toAjax(noticeService.insertNotice(notice));
     }
@@ -89,6 +92,4 @@ public class SysNoticeController extends BaseController
     {
         return toAjax(noticeService.deleteNoticeByIds(noticeIds));
     }
-
-    //todo   在这里写站内信相关功能！！！！
 }
