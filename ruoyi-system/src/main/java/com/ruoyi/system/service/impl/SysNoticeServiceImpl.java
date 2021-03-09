@@ -31,6 +31,15 @@ public class SysNoticeServiceImpl implements ISysNoticeService
     }
 
     /**
+     * 返回最新的一条公告信息
+     * @return 公告信息
+     */
+    @Override
+    public SysNotice selectNewNotice() {
+        return noticeMapper.selectNewNotice();
+    }
+
+    /**
      * 查询公告列表
      * 
      * @param notice 公告信息

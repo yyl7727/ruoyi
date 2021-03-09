@@ -22,6 +22,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select notice_id, notice_title, notice_type, cast(notice_content as char) as notice_content, status, is_read, create_by, create_time, update_by, update_time, remark
 		from sys_notice
     </sql>
+
+    <select id="selectNewNotice" resultMap="SysNoticeResult">
+        <include refid="selectNoticeVo"/>
+        order by create_time desc limit 1
+    </select>
     
     <select id="selectNoticeById" parameterType="Long" resultMap="SysNoticeResult">
         <include refid="selectNoticeVo"/>

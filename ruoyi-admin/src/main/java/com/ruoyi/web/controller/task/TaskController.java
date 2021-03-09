@@ -7,8 +7,10 @@ import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.system.domain.SysNotice;
+import com.ruoyi.system.domain.SysNoticeStatus;
 import com.ruoyi.system.domain.Task;
 import com.ruoyi.system.domain.TaskMember;
+import com.ruoyi.system.service.ISysNoticeService;
 import com.ruoyi.system.service.ITaskService;
 import com.sun.javafx.tk.Toolkit;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 /**
  * 课题
@@ -26,6 +29,8 @@ import java.util.List;
 public class TaskController extends BaseController {
     @Autowired
     ITaskService taskService;
+    @Autowired
+    ISysNoticeService noticeService;
 
     /**
      * 获取课题列表
@@ -82,14 +87,21 @@ public class TaskController extends BaseController {
 
     @PostMapping("/invite")
     public AjaxResult inviteIntoTask(@RequestBody TaskMember taskMember) {
+        String userName = SecurityUtils.getUsername();
         SysNotice notice = new SysNotice();
+        SysNoticeStatus noticeStatus = new SysNoticeStatus();
         notice.setNoticeTitle("课题加入邀请");
 
         //获取通知内容所需的必要信息
         Task task = taskService.selectTaskById(taskMember.getTaskId());
-        notice.setNoticeContent("");
+        //发送通知
+        notice.setNoticeContent(taskMember.getStudentUserName() + " 教师：" + task.getCreateBy() + " 邀请你加入课题：" + task.getTaskName());
+        notice.setNoticeType("4");
+        notice.setCreateBy(userName);
+        noticeService.insertNotice(notice);
+        noticeStatus.setNotice_id(noticeService.selectNewNotice().getNoticeId().toString());
 
-        taskMember.setCreateBy(SecurityUtils.getUsername());
+        taskMember.setCreateBy(userName);
         return toAjax(taskService.inviteIntoTask(taskMember));
     }
 }

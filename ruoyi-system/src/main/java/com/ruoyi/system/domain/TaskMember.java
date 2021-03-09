@@ -16,7 +16,7 @@ public class TaskMember extends BaseEntity {
      */
     private String studentUserName;
     /**
-     * 状态
+     * 状态 0待加入 1已加入
      */
     private String status;
     /**
