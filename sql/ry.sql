@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : Mysql
  Source Server Type    : MySQL
- Source Server Version : 50721
+ Source Server Version : 80018
  Source Host           : localhost:3306
  Source Schema         : ry
 
  Target Server Type    : MySQL
- Target Server Version : 50721
+ Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 09/03/2021 17:27:03
+ Date: 09/03/2021 23:21:04
 */
 
 SET NAMES utf8mb4;
@@ -232,7 +232,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('RuoyiScheduler', 'DESKTOP-AERBHQ91615278931871', 1615282010704, 15000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('RuoyiScheduler', 'DESKTOP-LTHNT801615298599067', 1615300615051, 15000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -301,10 +301,10 @@ CREATE TABLE `qrtz_triggers`  (
 -- ----------------------------
 -- Records of qrtz_triggers
 -- ----------------------------
-INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME1', 'DEFAULT', 'TASK_CLASS_NAME1', 'DEFAULT', NULL, 1615278940000, -1, 5, 'PAUSED', 'CRON', 1615278932000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME100', 'DEFAULT', 'TASK_CLASS_NAME100', 'DEFAULT', NULL, 1615278940000, -1, 5, 'PAUSED', 'CRON', 1615278932000, 0, NULL, -1, '');
-INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME2', 'DEFAULT', 'TASK_CLASS_NAME2', 'DEFAULT', NULL, 1615278945000, -1, 5, 'PAUSED', 'CRON', 1615278932000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME3', 'DEFAULT', 'TASK_CLASS_NAME3', 'DEFAULT', NULL, 1615278940000, -1, 5, 'PAUSED', 'CRON', 1615278932000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME1', 'DEFAULT', 'TASK_CLASS_NAME1', 'DEFAULT', NULL, 1615298600000, -1, 5, 'PAUSED', 'CRON', 1615298599000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME100', 'DEFAULT', 'TASK_CLASS_NAME100', 'DEFAULT', NULL, 1615298600000, -1, 5, 'PAUSED', 'CRON', 1615298599000, 0, NULL, -1, '');
+INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME2', 'DEFAULT', 'TASK_CLASS_NAME2', 'DEFAULT', NULL, 1615298610000, -1, 5, 'PAUSED', 'CRON', 1615298599000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('RuoyiScheduler', 'TASK_CLASS_NAME3', 'DEFAULT', 'TASK_CLASS_NAME3', 'DEFAULT', NULL, 1615298600000, -1, 5, 'PAUSED', 'CRON', 1615298599000, 0, NULL, 2, '');
 
 -- ----------------------------
 -- Table structure for rearch_info
@@ -553,7 +553,7 @@ CREATE TABLE `sys_logininfor`  (
   `msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '提示消息',
   `login_time` datetime(0) NULL DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 186 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 187 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -644,6 +644,8 @@ INSERT INTO `sys_logininfor` VALUES (182, 'admin', '127.0.0.1', '内网IP', 'Chr
 INSERT INTO `sys_logininfor` VALUES (183, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '退出成功', '2021-03-08 20:41:15');
 INSERT INTO `sys_logininfor` VALUES (184, 'student', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2021-03-08 20:41:24');
 INSERT INTO `sys_logininfor` VALUES (185, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2021-03-09 16:24:36');
+INSERT INTO `sys_logininfor` VALUES (186, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2021-03-09 20:28:03');
+INSERT INTO `sys_logininfor` VALUES (187, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Windows 10', '0', '登录成功', '2021-03-09 22:36:16');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -785,6 +787,8 @@ CREATE TABLE `sys_notice`  (
 -- Records of sys_notice
 -- ----------------------------
 INSERT INTO `sys_notice` VALUES (12, '123', '1', 0x3C703E3132333C2F703E, '0', '0', 'admin', '2021-03-09 16:28:06', '', NULL, NULL);
+INSERT INTO `sys_notice` VALUES (13, '课题加入邀请', '4', 0x61646D696E20E69599E5B888EFBC9A61646D696E20E98280E8AFB7E4BDA0E58AA0E585A5E8AFBEE9A298EFBC9AE6B58BE8AF95E8AFBEE9A298, '0', '0', '', '2021-03-09 20:39:33', '', NULL, NULL);
+INSERT INTO `sys_notice` VALUES (14, '课题加入邀请', '4', 0x61646D696E20E69599E5B888EFBC9A61646D696E20E98280E8AFB7E4BDA0E58AA0E585A5E8AFBEE9A298EFBC9AE6B58BE8AF95E8AFBEE9A298, '0', '0', 'admin', '2021-03-09 22:36:28', '', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_notice_status
@@ -1135,15 +1139,21 @@ INSERT INTO `task_info` VALUES (10, '测试课题', '0', 10, NULL, '0', '0', 'ad
 DROP TABLE IF EXISTS `task_member`;
 CREATE TABLE `task_member`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `task_id` bigint(20) NOT NULL,
-  `student_username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `status` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `is_delete` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `task_id` bigint(20) NOT NULL COMMENT '课题id',
+  `student_username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '学生用户名',
+  `status` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '状态 0待加入 1已加入',
+  `is_delete` varchar(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '是否删除 0未删除 1已删除',
   `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `create_time` datetime(0) NULL DEFAULT NULL,
   `update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '课题成员表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of task_member
+-- ----------------------------
+INSERT INTO `task_member` VALUES (8, 10, 'admin', '0', '0', 'admin', '2021-03-09 20:39:33', NULL, NULL);
+INSERT INTO `task_member` VALUES (9, 10, 'admin', '0', '0', 'admin', '2021-03-09 22:36:55', NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
