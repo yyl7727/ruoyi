@@ -2,6 +2,7 @@ package com.ruoyi.system.mapper;
 
 import java.util.List;
 import com.ruoyi.system.domain.SysNotice;
+import com.ruoyi.system.domain.request.SysNoticeRequest;
 
 /**
  * 通知公告表 数据层
@@ -27,10 +28,10 @@ public interface SysNoticeMapper
     /**
      * 查询公告列表
      *
-     * @param notice 公告信息
+     * @param noticeRequest 公告参数
      * @return 公告集合
      */
-    List<SysNotice> selectNoticeList(SysNotice notice);
+    List<SysNotice> selectNoticeList(SysNoticeRequest noticeRequest);
 
     /**
      * 新增公告
@@ -63,4 +64,10 @@ public interface SysNoticeMapper
      * @return 结果
      */
     int deleteNoticeByIds(Long[] noticeIds);
+
+    /**
+     * 查询所有未读公告列表
+     * @return 未读数量
+     */
+    int selectNoticeNotReadList(SysNoticeRequest noticeRequest);
 }

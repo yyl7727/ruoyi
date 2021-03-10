@@ -11,19 +11,19 @@ public class SysNoticeStatus extends BaseEntity {
     /**
      * 通知id
      */
-    private String notice_id;
+    private String noticeId;
     /**
      * 接收人用户名
      */
-    private String user_id;
+    private String userId;
     /**
      * 课题编号
      */
-    private String task_id;
+    private String taskId;
     /**
      * 是否已读
      */
-    private String is_read;
+    private String isRead;
 
     public Long getId() {
         return id;
@@ -33,35 +33,35 @@ public class SysNoticeStatus extends BaseEntity {
         this.id = id;
     }
 
-    public String getNotice_id() {
-        return notice_id;
+    public String getNoticeId() {
+        return noticeId;
     }
 
-    public void setNotice_id(String notice_id) {
-        this.notice_id = notice_id;
+    public void setNoticeId(String noticeId) {
+        this.noticeId = noticeId;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getTask_id() {
-        return task_id;
+    public String getTaskId() {
+        return taskId;
     }
 
-    public void setTask_id(String task_id) {
-        this.task_id = task_id;
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
 
-    public String getIs_read() {
-        return is_read;
+    public String getIsRead() {
+        return isRead;
     }
 
-    public void setIs_read(String is_read) {
-        this.is_read = is_read;
+    public void setIsRead(String isRead) {
+        this.isRead = isRead;
     }
 }

@@ -1,6 +1,8 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.request.SysNoticeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -38,11 +40,19 @@ public class SysNoticeController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:notice:list')")
     @GetMapping("/list")
-    public TableDataInfo list(SysNotice notice)
+    public TableDataInfo list(SysNoticeRequest noticeRequest)
     {
+        noticeRequest.setUserId(SecurityUtils.getUsername());
         startPage();
-        List<SysNotice> list = noticeService.selectNoticeList(notice);
+        List<SysNotice> list = noticeService.selectNoticeList(noticeRequest);
         return getDataTable(list);
+    }
+
+    @GetMapping("/count")
+    public AjaxResult count(SysNoticeRequest noticeRequest)
+    {
+        noticeRequest.setUserId(SecurityUtils.getUsername());
+        return AjaxResult.success(noticeService.selectNoticeNotReadList(noticeRequest));
     }
 
     /**

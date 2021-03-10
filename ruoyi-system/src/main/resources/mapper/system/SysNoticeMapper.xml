@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.system.mapper.SysNoticeMapper">
-    
+
     <resultMap type="SysNotice" id="SysNoticeResult">
         <result property="noticeId"       column="notice_id"       />
         <result property="noticeTitle"    column="notice_title"    />
@@ -17,37 +17,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updateTime"     column="update_time"     />
         <result property="remark"         column="remark"          />
     </resultMap>
-    
+
     <sql id="selectNoticeVo">
-        select notice_id, notice_title, notice_type, cast(notice_content as char) as notice_content, status, is_read, create_by, create_time, update_by, update_time, remark
-		from sys_notice
+        select t.notice_id, t.notice_title, t.notice_type, cast(t.notice_content as char) as notice_content, t.status, t.is_read, t.create_by, t.create_time, t.update_by, t.update_time, t.remark
+		from sys_notice t
     </sql>
 
     <select id="selectNewNotice" resultMap="SysNoticeResult">
         <include refid="selectNoticeVo"/>
         order by create_time desc limit 1
     </select>
-    
-    <select id="selectNoticeById" parameterType="Long" resultMap="SysNoticeResult">
+
+    <select id="selectNoticeById" parameterType="SysNoticeRequest" resultMap="SysNoticeResult">
         <include refid="selectNoticeVo"/>
-        where notice_id = #{noticeId}
+        left join sys_notice_status a on t.notice_id = a.notice_id
+        where t.notice_id = #{noticeId}
+        and a.user_id = #{userId}
     </select>
-    
-    <select id="selectNoticeList" parameterType="SysNotice" resultMap="SysNoticeResult">
+
+    <select id="selectNoticeList" parameterType="SysNoticeRequest" resultMap="SysNoticeResult">
         <include refid="selectNoticeVo"/>
+        left join sys_notice_status a on t.notice_id = a.notice_id
         <where>
 			<if test="noticeTitle != null and noticeTitle != ''">
-				AND notice_title like concat('%', #{noticeTitle}, '%')
+				AND t.notice_title like concat('%', #{noticeTitle}, '%')
 			</if>
 			<if test="noticeType != null and noticeType != ''">
-				AND notice_type = #{noticeType}
+				AND t.notice_type = #{noticeType}
 			</if>
 			<if test="createBy != null and createBy != ''">
-				AND create_by like concat('%', #{createBy}, '%')
+				AND t.create_by like concat('%', #{createBy}, '%')
 			</if>
+			and a.user_id = #{userId}
 		</where>
     </select>
-    
+
+    <select id="selectNoticeNotReadList" parameterType="SysNoticeRequest" resultType="int">
+        select count(*) from sys_notice t
+        left join sys_notice_status a on t.notice_id = a.notice_id
+        where a.is_read = 0 and a.user_id = #{userId}
+    </select>
+
     <insert id="insertNotice" parameterType="SysNotice">
         insert into sys_notice (
 			<if test="noticeTitle != null and noticeTitle != '' ">notice_title, </if>
@@ -69,9 +79,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			sysdate()
 		)
     </insert>
-	 
+
     <update id="updateNotice" parameterType="SysNotice">
-        update sys_notice 
+        update sys_notice
         <set>
             <if test="noticeTitle != null and noticeTitle != ''">notice_title = #{noticeTitle}, </if>
             <if test="noticeType != null and noticeType != ''">notice_type = #{noticeType}, </if>
@@ -83,16 +93,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </set>
         where notice_id = #{noticeId}
     </update>
-	
+
     <delete id="deleteNoticeById" parameterType="Long">
         delete from sys_notice where notice_id = #{noticeId}
     </delete>
-    
+
     <delete id="deleteNoticeByIds" parameterType="Long">
-        delete from sys_notice where notice_id in 
+        delete from sys_notice where notice_id in
         <foreach item="noticeId" collection="array" open="(" separator="," close=")">
             #{noticeId}
         </foreach>
     </delete>
-    
+
 </mapper>

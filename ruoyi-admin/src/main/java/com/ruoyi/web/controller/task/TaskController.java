@@ -11,6 +11,7 @@ import com.ruoyi.system.domain.SysNoticeStatus;
 import com.ruoyi.system.domain.Task;
 import com.ruoyi.system.domain.TaskMember;
 import com.ruoyi.system.service.ISysNoticeService;
+import com.ruoyi.system.service.ISysNoticeStatusService;
 import com.ruoyi.system.service.ITaskService;
 import com.sun.javafx.tk.Toolkit;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -31,6 +32,8 @@ public class TaskController extends BaseController {
     ITaskService taskService;
     @Autowired
     ISysNoticeService noticeService;
+    @Autowired
+    ISysNoticeStatusService noticeStatusService;
 
     /**
      * 获取课题列表
@@ -99,7 +102,11 @@ public class TaskController extends BaseController {
         notice.setNoticeType("4");
         notice.setCreateBy(userName);
         noticeService.insertNotice(notice);
-        noticeStatus.setNotice_id(noticeService.selectNewNotice().getNoticeId().toString());
+        noticeStatus.setNoticeId(noticeService.selectNewNotice().getNoticeId().toString());
+        noticeStatus.setTaskId(taskMember.getTaskId());
+        noticeStatus.setUserId(taskMember.getStudentUserName());
+        noticeStatus.setCreateBy(userName);
+        noticeStatusService.insertNoticeStatus(noticeStatus);
 
         taskMember.setCreateBy(userName);
         return toAjax(taskService.inviteIntoTask(taskMember));
