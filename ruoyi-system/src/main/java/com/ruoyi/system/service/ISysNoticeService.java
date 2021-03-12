@@ -2,6 +2,7 @@ package com.ruoyi.system.service;
 
 import java.util.List;
 import com.ruoyi.system.domain.SysNotice;
+import com.ruoyi.system.domain.SysNoticeStatus;
 import com.ruoyi.system.domain.request.SysNoticeRequest;
 
 /**
@@ -17,7 +18,15 @@ public interface ISysNoticeService
      * @param noticeId 公告ID
      * @return 公告信息
      */
-    SysNotice selectNoticeById(Long noticeId);
+    SysNotice selectNoticeById(String noticeId);
+
+    /**
+     * 查询公告状态信息
+     *
+     * @param noticeRequest 参数实体
+     * @return 公告状态信息
+     */
+    SysNoticeStatus selectNoticeStatusById(SysNoticeRequest noticeRequest);
 
     /**
      * 返回最新的一条公告信息
@@ -61,7 +70,7 @@ public interface ISysNoticeService
      * @param noticeId 公告ID
      * @return 结果
      */
-    int deleteNoticeById(Long noticeId);
+    int deleteNoticeById(String noticeId);
 
     /**
      * 批量删除公告信息
@@ -69,5 +78,12 @@ public interface ISysNoticeService
      * @param noticeIds 需要删除的公告ID
      * @return 结果
      */
-    int deleteNoticeByIds(Long[] noticeIds);
+    int deleteNoticeByIds(String[] noticeIds);
+
+    /**
+     * 设置通知为已读
+     * @param sysNoticeRequest 参数实体
+     * @return 结果
+     */
+    int setRead(SysNoticeRequest sysNoticeRequest);
 }

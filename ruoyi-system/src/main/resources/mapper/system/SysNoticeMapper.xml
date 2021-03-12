@@ -18,6 +18,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="remark"         column="remark"          />
     </resultMap>
 
+    <resultMap id="SysNoticeStatusResult" type="SysNoticeStatus">
+        <result property="id"             column="id"              />
+        <result property="noticeId"       column="notice_id"       />
+        <result property="userId"         column="user_id"         />
+        <result property="taskId"         column="task_id"         />
+        <result property="isRead"         column="is_read"         />
+        <result property="createBy"       column="create_by"       />
+        <result property="createTime"     column="create_time"     />
+        <result property="updateBy"       column="update_by"       />
+        <result property="updateTime"     column="update_time"     />
+    </resultMap>
+
     <sql id="selectNoticeVo">
         select t.notice_id, t.notice_title, t.notice_type, cast(t.notice_content as char) as notice_content, t.status, t.is_read, t.create_by, t.create_time, t.update_by, t.update_time, t.remark
 		from sys_notice t
@@ -28,11 +40,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         order by create_time desc limit 1
     </select>
 
-    <select id="selectNoticeById" parameterType="SysNoticeRequest" resultMap="SysNoticeResult">
+    <select id="selectNoticeById" parameterType="String" resultMap="SysNoticeResult">
         <include refid="selectNoticeVo"/>
         left join sys_notice_status a on t.notice_id = a.notice_id
         where t.notice_id = #{noticeId}
-        and a.user_id = #{userId}
+    </select>
+
+    <select id="selectNoticeStatusById" parameterType="SysNoticeRequest" resultMap="SysNoticeStatusResult">
+        select id, notice_id, user_id, task_id, is_read, create_by, create_time, update_by, update_time
+        from sys_notice_status
+        where notice_id = #{noticeId}
+        and user_id = #{userId}
     </select>
 
     <select id="selectNoticeList" parameterType="SysNoticeRequest" resultMap="SysNoticeResult">
@@ -94,15 +112,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where notice_id = #{noticeId}
     </update>
 
-    <delete id="deleteNoticeById" parameterType="Long">
+    <delete id="deleteNoticeById" parameterType="String">
         delete from sys_notice where notice_id = #{noticeId}
     </delete>
 
-    <delete id="deleteNoticeByIds" parameterType="Long">
+    <delete id="deleteNoticeByIds" parameterType="String">
         delete from sys_notice where notice_id in
         <foreach item="noticeId" collection="array" open="(" separator="," close=")">
             #{noticeId}
         </foreach>
     </delete>
+
+    <update id="setRead" parameterType="SysNoticeRequest">
+        update sys_notice
+        <set>
+            <if test="noticeTitle != null and noticeTitle != ''">notice_title = #{noticeTitle}, </if>
+            <if test="noticeType != null and noticeType != ''">notice_type = #{noticeType}, </if>
+            <if test="isRead != null and isRead != ''">is_read = #{isRead}, </if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = sysdate()
+        </set>
+        where notice_id = #{noticeId}
+    </update>
+
+    <update id="setRead1" parameterType="SysNoticeRequest">
+        update sys_notice_status
+        <set>
+            <if test="isRead != null and isRead != ''">is_read = #{isRead}, </if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = sysdate()
+        </set>
+        where notice_id = #{noticeId}
+        and user_id = #{userId}
+    </update>
 
 </mapper>

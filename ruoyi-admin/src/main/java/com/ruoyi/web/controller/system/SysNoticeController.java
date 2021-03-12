@@ -60,7 +60,7 @@ public class SysNoticeController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:notice:query')")
     @GetMapping(value = "/{noticeId}")
-    public AjaxResult getInfo(@PathVariable Long noticeId)
+    public AjaxResult getInfo(@PathVariable String noticeId)
     {
         return AjaxResult.success(noticeService.selectNoticeById(noticeId));
     }
@@ -98,8 +98,23 @@ public class SysNoticeController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:notice:remove')")
     @Log(title = "通知公告", businessType = BusinessType.DELETE)
     @DeleteMapping("/{noticeIds}")
-    public AjaxResult remove(@PathVariable Long[] noticeIds)
+    public AjaxResult remove(@PathVariable String[] noticeIds)
     {
         return toAjax(noticeService.deleteNoticeByIds(noticeIds));
+    }
+
+    /**
+     * 设置通知为已读
+     * @param sysNoticeRequest 参数实体
+     * @return 结果
+     */
+    @Log(title = "通知公告", businessType = BusinessType.UPDATE)
+    @PutMapping("/setRead")
+    public AjaxResult setRead(@RequestBody SysNoticeRequest sysNoticeRequest) {
+        String username = SecurityUtils.getUsername();
+        sysNoticeRequest.setUserId(username);
+        sysNoticeRequest.setIsRead("1");
+        sysNoticeRequest.setUpdateBy(username);
+        return AjaxResult.success(noticeService.setRead(sysNoticeRequest));
     }
 }

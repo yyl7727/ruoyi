@@ -11,7 +11,7 @@ public class SysNoticeRequest extends BaseEntity {
     /**
      * 通知id
      */
-    private long noticeId;
+    private String noticeId;
     /**
      * 收件人用户名
      */
@@ -27,12 +27,17 @@ public class SysNoticeRequest extends BaseEntity {
      */
     private String noticeType;
 
+    /**
+     * 是否已读 0未读 1已读
+     */
+    private String isRead;
 
-    public long getNoticeId() {
+
+    public String getNoticeId() {
         return noticeId;
     }
 
-    public void setNoticeId(long noticeId) {
+    public void setNoticeId(String noticeId) {
         this.noticeId = noticeId;
     }
 
@@ -58,5 +63,13 @@ public class SysNoticeRequest extends BaseEntity {
 
     public void setNoticeType(String noticeType) {
         this.noticeType = noticeType;
+    }
+
+    public String getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(String isRead) {
+        this.isRead = isRead;
     }
 }

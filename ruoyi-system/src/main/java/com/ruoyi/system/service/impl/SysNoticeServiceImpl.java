@@ -2,6 +2,7 @@ package com.ruoyi.system.service.impl;
 
 import java.util.List;
 
+import com.ruoyi.system.domain.SysNoticeStatus;
 import com.ruoyi.system.domain.request.SysNoticeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,9 +28,20 @@ public class SysNoticeServiceImpl implements ISysNoticeService
      * @return 公告信息
      */
     @Override
-    public SysNotice selectNoticeById(Long noticeId)
+    public SysNotice selectNoticeById(String noticeId)
     {
         return noticeMapper.selectNoticeById(noticeId);
+    }
+
+    /**
+     * 查询公告状态信息
+     *
+     * @param noticeRequest 参数实体
+     * @return 公告状态信息
+     */
+    @Override
+    public SysNoticeStatus selectNoticeStatusById(SysNoticeRequest noticeRequest) {
+        return noticeMapper.selectNoticeStatusById(noticeRequest);
     }
 
     /**
@@ -93,7 +105,7 @@ public class SysNoticeServiceImpl implements ISysNoticeService
      * @return 结果
      */
     @Override
-    public int deleteNoticeById(Long noticeId)
+    public int deleteNoticeById(String noticeId)
     {
         return noticeMapper.deleteNoticeById(noticeId);
     }
@@ -105,8 +117,19 @@ public class SysNoticeServiceImpl implements ISysNoticeService
      * @return 结果
      */
     @Override
-    public int deleteNoticeByIds(Long[] noticeIds)
+    public int deleteNoticeByIds(String[] noticeIds)
     {
         return noticeMapper.deleteNoticeByIds(noticeIds);
+    }
+
+    /**
+     * 设置通知为已读
+     * @param sysNoticeRequest 参数实体
+     * @return 结果
+     */
+    @Override
+    public int setRead(SysNoticeRequest sysNoticeRequest) {
+        noticeMapper.setRead1(sysNoticeRequest);
+        return noticeMapper.setRead(sysNoticeRequest);
     }
 }
