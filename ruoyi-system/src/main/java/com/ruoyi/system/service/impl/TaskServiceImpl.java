@@ -3,6 +3,7 @@ package com.ruoyi.system.service.impl;
 import com.ruoyi.system.domain.SysNotice;
 import com.ruoyi.system.domain.Task;
 import com.ruoyi.system.domain.TaskMember;
+import com.ruoyi.system.mapper.SysNoticeMapper;
 import com.ruoyi.system.mapper.TaskMapper;
 import com.ruoyi.system.service.ITaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import java.util.List;
 public class TaskServiceImpl implements ITaskService {
     @Autowired
     TaskMapper taskMapper;
+    @Autowired
+    SysNoticeMapper noticeMapper;
 
     /**
      * 查询课题列表
@@ -93,13 +96,22 @@ public class TaskServiceImpl implements ITaskService {
     }
 
     /**
-     * 发送邀请信息
-     * @param createBy
-     * @return
+     * 加入课题
+     * @param taskMember 课题成员参数
+     * @return 结果
      */
-    private boolean sendInviteNotice(String createBy) {
-        SysNotice sysNotice = new SysNotice();
-        sysNotice.setNoticeTitle("课题邀请加入信息");
-        return true;
+    @Override
+    public int joinTask(TaskMember taskMember) {
+        return taskMapper.joinTask(taskMember);
+    }
+
+    /**
+     * 拒绝加入课题
+     * @param taskMember 课题成员参数
+     * @return 结果
+     */
+    @Override
+    public int unJoinTask(TaskMember taskMember) {
+        return taskMapper.unJoinTask(taskMember);
     }
 }

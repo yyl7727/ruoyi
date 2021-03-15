@@ -6,6 +6,8 @@ import com.ruoyi.system.service.ISysNoticeStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 公告状态 服务层实现
  *
@@ -25,5 +27,15 @@ public class SysNoticeStatusServiceImpl implements ISysNoticeStatusService {
     @Override
     public int insertNoticeStatus(SysNoticeStatus sysNoticeStatus) {
         return noticeStatusMapper.insertNoticeStatus(sysNoticeStatus);
+    }
+
+    /**
+     * 查询公告状态
+     * @param noticeStatus 公告状态参数
+     * @return 结果
+     */
+    @Override
+    public List<SysNoticeStatus> selectNoticeStatus(SysNoticeStatus noticeStatus) {
+        return noticeStatusMapper.selectNoticeStatus(noticeStatus);
     }
 }

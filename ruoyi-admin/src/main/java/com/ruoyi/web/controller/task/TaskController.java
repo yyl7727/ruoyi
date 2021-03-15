@@ -111,4 +111,53 @@ public class TaskController extends BaseController {
         taskMember.setCreateBy(userName);
         return toAjax(taskService.inviteIntoTask(taskMember));
     }
+
+    /**
+     * 加入课题
+     * @param noticeId 课题id
+     * @return 结果
+     */
+    @PutMapping("/join")
+    public AjaxResult joinTask(@RequestBody String noticeId) {
+        return toAjax(taskService.joinTask(getTaskMember(noticeId)));
+    }
+
+    /**
+     * 拒绝加入课题
+     * @param noticeId 课题id
+     * @return 结果
+     */
+    @PutMapping("/unJoin")
+    public AjaxResult unJoinTask(@RequestBody String noticeId) {
+        return toAjax(taskService.unJoinTask(getTaskMember(noticeId)));
+    }
+
+    /**
+     * 获取加入或拒绝课题所需的参数
+     * @param noticeId 课题id
+     * @return 结果
+     */
+    private TaskMember getTaskMember(String noticeId) {
+        SysNotice notice = new SysNotice();
+        SysNoticeStatus noticeStatus = new SysNoticeStatus();
+        TaskMember taskMember = new TaskMember();
+
+        noticeStatus.setUserId(SecurityUtils.getUsername());
+        noticeStatus.setNoticeId(noticeId);
+        List<SysNoticeStatus> noticeStatuses = noticeStatusService.selectNoticeStatus(noticeStatus);
+
+        if (noticeStatuses.size() == 1) {
+            taskMember.setTaskId(noticeStatuses.get(0).getTaskId());
+            taskMember.setStudentUserName(noticeStatuses.get(0).getUserId());
+            taskMember.setUpdateBy(SecurityUtils.getUsername());
+
+            notice.setNoticeId(Long.valueOf(noticeId));
+            notice.setUpdateBy(SecurityUtils.getUsername());
+            notice.setStatus("1");
+            noticeService.updateNotice(notice);
+            return taskMember;
+        } else {
+            return new TaskMember();
+        }
+    }
 }

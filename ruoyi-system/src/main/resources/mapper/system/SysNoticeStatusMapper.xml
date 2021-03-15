@@ -33,4 +33,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			sysdate()
 		)
     </insert>
+
+    <select id="selectNoticeStatus" parameterType="SysNoticeStatus" resultMap="SysNoticeStatusResult">
+        select id, notice_id, user_id, task_id, is_read, create_by, create_time, update_by, update_time
+        from sys_notice_status
+        <where>
+            <if test="noticeId != null and noticeId != ''">
+                and notice_id = #{noticeId}
+            </if>
+            <if test="userId != null and userId != ''">
+                and user_id = #{userId}
+            </if>
+        </where>
+    </select>
 </mapper>

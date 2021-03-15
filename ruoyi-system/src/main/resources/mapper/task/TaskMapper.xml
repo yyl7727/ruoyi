@@ -103,4 +103,18 @@
     <insert id="inviteIntoTask" parameterType="TaskMember">
         insert into task_member(task_id, student_username, status, is_delete, create_by, create_time) values(#{taskId}, #{studentUserName}, '0', '0', #{createBy}, sysdate())
     </insert>
+
+    <update id="joinTask" parameterType="TaskMember">
+        update task_member
+        set status = 1, update_by = #{updateBy}, update_time = sysdate()
+        where task_id = #{taskId}
+        and student_username = #{studentUserName}
+    </update>
+
+    <update id="unJoinTask" parameterType="TaskMember">
+        update task_member
+        set status = 2, update_by = #{updateBy}, update_time = sysdate()
+        where task_id = #{taskId}
+          and student_username = #{studentUserName}
+    </update>
 </mapper>

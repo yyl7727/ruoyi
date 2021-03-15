@@ -1,6 +1,9 @@
 package com.ruoyi.system.service;
 
+import com.ruoyi.system.domain.SysNotice;
 import com.ruoyi.system.domain.SysNoticeStatus;
+
+import java.util.List;
 
 /**
  * 公告状态 服务层
@@ -14,4 +17,11 @@ public interface ISysNoticeStatusService {
      * @return 结果
      */
     int insertNoticeStatus(SysNoticeStatus sysNoticeStatus);
+
+    /**
+     * 查询公告状态
+     * @param noticeStatus 公告状态参数
+     * @return 结果
+     */
+    List<SysNoticeStatus> selectNoticeStatus(SysNoticeStatus noticeStatus);
 }
