@@ -39,7 +39,7 @@ public class Rearch extends BaseEntity {
      */
     private String studentDesc;
     /**
-     * 状态 0：已发布 1：已申请 2：申请成功 3：申请失败
+     * 状态 0：有效 1：失效
      */
     private String status;
     /**

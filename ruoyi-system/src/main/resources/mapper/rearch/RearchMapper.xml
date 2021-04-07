@@ -64,38 +64,16 @@
         </where>
     </select>
 
-<!--    <select id="selectTaskById" parameterType="String" resultMap="taskMap">-->
-<!--        select <include refid="baseColumn"/>-->
-<!--        from task_info t-->
-<!--        where t.task_id = #{taskId}-->
-<!--    </select>-->
+    <select id="selectRearchByStudent" resultMap="rearchMap" parameterType="String">
+        select <include refid="baseColumn"/>
+        from rearch_info t
+        where t.status = 0
+        and t.student_id = #{userName}
+    </select>
 
-
-
-<!--    <update id="updateTaskById" parameterType="Task">-->
-<!--        update task_info-->
-<!--        set task_name = #{taskName},task_type = #{taskType},task_num = #{taskNum},task_desc = #{taskDesc},status = #{status},update_by = #{updateBy},update_time = sysdate()-->
-<!--        where task_id = #{taskId}-->
-<!--    </update>-->
-
-<!--    <update id="changeStatusById" parameterType="Task">-->
-<!--        update task_info-->
-<!--        set status = #{status},update_by = #{updateBy},update_time = sysdate()-->
-<!--        where task_id = #{taskId}-->
-<!--    </update>-->
-
-<!--    <delete id="deleteTaskById" parameterType="Long">-->
-<!--        update task_info-->
-<!--        set is_delete = 1-->
-<!--        where task_id = #{taskId}-->
-<!--    </delete>-->
-
-<!--    <delete id="deleteTaskByIds" parameterType="Long">-->
-<!--        update task_info-->
-<!--        set is_delete = 1-->
-<!--        where task_id in-->
-<!--        <foreach collection="array" item="taskId" open="(" separator="," close=")">-->
-<!--            #{taskId}-->
-<!--        </foreach>-->
-<!--    </delete>-->
+    <update id="updateRearchById" parameterType="Rearch">
+        update rearch_info
+        set status = #{status}
+        where rearch_id = #{rearchId}
+    </update>
 </mapper>

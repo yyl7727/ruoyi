@@ -1,8 +1,9 @@
 package com.ruoyi.system.service.impl;
 
-import com.ruoyi.system.domain.SysNotice;
+import com.ruoyi.system.domain.Rearch;
 import com.ruoyi.system.domain.Task;
 import com.ruoyi.system.domain.TaskMember;
+import com.ruoyi.system.mapper.RearchMapper;
 import com.ruoyi.system.mapper.SysNoticeMapper;
 import com.ruoyi.system.mapper.TaskMapper;
 import com.ruoyi.system.service.ITaskService;
@@ -17,6 +18,8 @@ public class TaskServiceImpl implements ITaskService {
     TaskMapper taskMapper;
     @Autowired
     SysNoticeMapper noticeMapper;
+    @Autowired
+    RearchMapper rearchMapper;
 
     /**
      * 查询课题列表
@@ -102,6 +105,9 @@ public class TaskServiceImpl implements ITaskService {
      */
     @Override
     public int joinTask(TaskMember taskMember) {
+        Rearch rearch = rearchMapper.selectRearchByStudent(taskMember.getStudentUserName());
+        rearch.setStatus("1");
+        rearchMapper.updateRearchById(rearch);
         return taskMapper.joinTask(taskMember);
     }
 
