@@ -24,6 +24,15 @@ public class RearchServiceImpl implements IRearchService {
     }
 
     /**
+     * 新增前检查是否有状态为有效的未删除的助研信息
+     * @param rearch
+     * @return
+     */
+    public int checkExist(Rearch rearch) {
+        return rearchMapper.checkExist(rearch);
+    }
+
+    /**
      * 新增助研信息
      * @param rearch
      * @return

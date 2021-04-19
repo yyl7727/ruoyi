@@ -38,6 +38,11 @@
         t.update_time
     </sql>
 
+    <select id="checkExist" parameterType="Rearch" resultType="int">
+        select count(student_id) from rearch_info t
+        where t.is_delete = 0 and t.status = 0 and t.student_id = #{studentId}
+    </select>
+
     <insert id="addRearch" parameterType="Rearch">
         insert into rearch_info(student_id,student_name,student_major,student_phone,student_email,skill,student_desc,status,is_delete,create_by,create_time)
         values (#{studentId},#{studentName},#{studentMajor},#{studentPhone},#{studentEmail},#{skill},#{studentDesc},'0','0',#{createBy},sysdate())
@@ -47,6 +52,14 @@
         select <include refid="baseColumn"/>
         from rearch_info t
         <where>
+            <choose>
+                <when test="status != '' and status != null ">
+                    and t.status = #{status}
+                </when>
+                <otherwise>
+                    and t.status = 0
+                </otherwise>
+            </choose>
             <choose>
                 <when test="isDelete != '' and isDelete != null ">
                     and t.is_delete = #{isDelete}

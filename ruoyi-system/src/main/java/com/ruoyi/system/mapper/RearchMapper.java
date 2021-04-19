@@ -16,6 +16,13 @@ public interface RearchMapper {
     List<Rearch> selectRearchList(Rearch rearch);
 
     /**
+     * 新增前检查是否有状态为有效的未删除的助研信息
+     * @param rearch
+     * @return
+     */
+    int checkExist(Rearch rearch);
+
+    /**
      * 新增助研信息
      * @param rearch 助研信息实体
      * @return 结果

@@ -83,13 +83,11 @@ public class TaskServiceImpl implements ITaskService {
 
     /**
      *
-     * @param userId
+     * @param task
      * @return
      */
     @Override
-    public List<Task> selectTaskByUserId(String userId) {
-        Task task = new Task();
-        task.setCreateBy(userId);
+    public List<Task> selectTaskByUserId(Task task) {
         return taskMapper.selectTaskList(task);
     }
 
@@ -119,5 +117,25 @@ public class TaskServiceImpl implements ITaskService {
     @Override
     public int unJoinTask(TaskMember taskMember) {
         return taskMapper.unJoinTask(taskMember);
+    }
+
+    /**
+     * 加入课题
+     * @param taskMember 课题成员参数
+     * @return 结果
+     */
+    @Override
+    public int joinTask1(TaskMember taskMember) {
+        return taskMapper.joinTask1(taskMember);
+    }
+
+    /**
+     * 拒绝加入课题
+     * @param taskMember 课题成员参数
+     * @return 结果
+     */
+    @Override
+    public int unJoinTask1(TaskMember taskMember) {
+        return taskMapper.unJoinTask1(taskMember);
     }
 }

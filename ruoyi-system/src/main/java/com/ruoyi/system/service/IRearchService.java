@@ -25,4 +25,11 @@ public interface IRearchService {
      * @return
      */
     List<Rearch> selectRearchListByUserId(String userId);
+
+    /**
+     * 新增前检查是否有状态为有效的未删除的助研信息
+     * @param rearch
+     * @return
+     */
+    int checkExist(Rearch rearch);
 }

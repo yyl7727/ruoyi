@@ -43,6 +43,10 @@ public class RearchController extends BaseController {
             rearch.setStudentDesc(rearchVo.getStudentDesc());
         }
         rearch.setCreateBy(userName);
+        int isExist = rearchService.checkExist(rearch);
+        if (isExist > 0){
+            return AjaxResult.error("存在有效的助研信息，无法同时存在多个状态为有效的助研信息！");
+        }
         return toAjax(rearchService.addRearch(rearch));
     }
 

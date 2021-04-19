@@ -57,10 +57,10 @@ public interface ITaskService {
 
     /**
      * 根据用户名获取课题列表
-     * @param userId
+     * @param task
      * @return
      */
-    List<Task> selectTaskByUserId(String userId);
+    List<Task> selectTaskByUserId(Task task);
 
     /**
      * 邀请学生加入课题
@@ -82,4 +82,18 @@ public interface ITaskService {
      * @return 结果
      */
     int unJoinTask(TaskMember taskMember);
+
+    /**
+     * 加入课题
+     * @param taskMember 课题成员参数
+     * @return 结果
+     */
+    int joinTask1(TaskMember taskMember);
+
+    /**
+     * 拒绝加入课题
+     * @param taskMember 课题成员参数
+     * @return 结果
+     */
+    int unJoinTask1(TaskMember taskMember);
 }

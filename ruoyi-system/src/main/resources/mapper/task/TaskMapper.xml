@@ -111,7 +111,17 @@
         and student_username = #{studentUserName}
     </update>
 
-    <update id="unJoinTask" parameterType="TaskMember">
+    <delete id="unJoinTask" parameterType="TaskMember">
+        delete from task_member
+        where task_id = #{taskId}
+          and student_username = #{studentUserName}
+    </delete>
+
+    <update id="joinTask1" parameterType="TaskMember">
+        insert into task_member(task_id, student_username, status, is_delete, create_by, create_time) values(#{taskId}, #{studentUserName}, '1', '0', #{createBy}, sysdate())
+    </update>
+
+    <update id="unJoinTask1" parameterType="TaskMember">
         update task_member
         set status = 2, update_by = #{updateBy}, update_time = sysdate()
         where task_id = #{taskId}

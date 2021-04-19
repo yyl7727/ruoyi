@@ -75,4 +75,18 @@ public interface TaskMapper {
      * @return 结果
      */
     int unJoinTask(TaskMember taskMember);
+
+    /**
+     * 加入课题
+     * @param taskMember 课题成员参数
+     * @return 结果
+     */
+    int joinTask1(TaskMember taskMember);
+
+    /**
+     * 拒绝加入课题
+     * @param taskMember 课题成员参数
+     * @return 结果
+     */
+    int unJoinTask1(TaskMember taskMember);
 }
