@@ -1,35 +1,26 @@
-package com.ruoyi.system.domain;
+package com.ruoyi.system.domain.vo;
 
-import com.ruoyi.common.core.domain.BaseEntity;
+public class TaskMemberVo {
+    private String Id;
 
-public class TaskMember extends BaseEntity {
-    /**
-     * id
-     */
-    private String id;
-    /**
-     * 课题id
-     */
     private String taskId;
-    /**
-     * 学生用户名
-     */
+
+    private String taskName;
+
+    private String taskTeacher;
+
     private String studentName;
-    /**
-     * 状态 0待加入 1已加入
-     */
+
     private String status;
-    /**
-     * 是否删除
-     */
+
     private String isDelete;
 
     public String getId() {
-        return id;
+        return Id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        Id = id;
     }
 
     public String getTaskId() {
@@ -38,6 +29,22 @@ public class TaskMember extends BaseEntity {
 
     public void setTaskId(String taskId) {
         this.taskId = taskId;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    public String getTaskTeacher() {
+        return taskTeacher;
+    }
+
+    public void setTaskTeacher(String taskTeacher) {
+        this.taskTeacher = taskTeacher;
     }
 
     public String getStudentName() {

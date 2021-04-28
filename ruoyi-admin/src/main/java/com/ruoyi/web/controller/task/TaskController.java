@@ -122,13 +122,13 @@ public class TaskController extends BaseController {
         //获取通知内容所需的必要信息
         Task task = taskService.selectTaskById(taskMember.getTaskId());
         //发送通知
-        notice.setNoticeContent(taskMember.getStudentUserName() + " 教师：" + task.getCreateBy() + " 邀请你加入课题：" + task.getTaskName());
+        notice.setNoticeContent(taskMember.getStudentName() + " 教师：" + task.getCreateBy() + " 邀请你加入课题：" + task.getTaskName());
         notice.setNoticeType("4");
         notice.setCreateBy(userName);
         noticeService.insertNotice(notice);
         noticeStatus.setNoticeId(noticeService.selectNewNotice().getNoticeId().toString());
         noticeStatus.setTaskId(taskMember.getTaskId());
-        noticeStatus.setUserId(taskMember.getStudentUserName());
+        noticeStatus.setUserId(taskMember.getStudentName());
         noticeStatus.setCreateBy(userName);
         noticeStatusService.insertNoticeStatus(noticeStatus);
 
@@ -221,7 +221,7 @@ public class TaskController extends BaseController {
 
         if (noticeStatuses.size() == 1) {
             taskMember.setTaskId(noticeStatuses.get(0).getTaskId());
-            taskMember.setStudentUserName(noticeStatuses.get(0).getUserId());
+            taskMember.setStudentName(noticeStatuses.get(0).getUserId());
             taskMember.setUpdateBy(SecurityUtils.getUsername());
 
             notice.setNoticeId(Long.valueOf(noticeId));
@@ -250,7 +250,7 @@ public class TaskController extends BaseController {
 
         if (noticeStatuses.size() == 1) {
             taskMember.setTaskId(noticeStatuses.get(0).getTaskId());
-            taskMember.setStudentUserName(noticeStatuses.get(0).getCreateBy());
+            taskMember.setStudentName(noticeStatuses.get(0).getCreateBy());
             taskMember.setCreateBy(SecurityUtils.getUsername());
 
             notice.setNoticeId(Long.valueOf(noticeId));
@@ -261,5 +261,16 @@ public class TaskController extends BaseController {
         } else {
             return new TaskMember();
         }
+    }
+
+    /**
+     * 获取课题列表
+     */
+    @GetMapping("/member/list")
+    public TableDataInfo taskMemberList(TaskMember taskMember) {
+        startPage();
+        List<TaskMember> list;
+        list = taskService.selectTaskMember(taskMember);
+        return getDataTable(list);
     }
 }

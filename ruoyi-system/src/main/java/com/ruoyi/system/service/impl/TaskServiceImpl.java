@@ -103,7 +103,7 @@ public class TaskServiceImpl implements ITaskService {
      */
     @Override
     public int joinTask(TaskMember taskMember) {
-        Rearch rearch = rearchMapper.selectRearchByStudent(taskMember.getStudentUserName());
+        Rearch rearch = rearchMapper.selectRearchByStudent(taskMember.getStudentName());
         rearch.setStatus("1");
         rearchMapper.updateRearchById(rearch);
         return taskMapper.joinTask(taskMember);
@@ -147,5 +147,10 @@ public class TaskServiceImpl implements ITaskService {
     @Override
     public List<Task> selectJoinedTask(String userName) {
         return taskMapper.selectJoinedTask(userName);
+    }
+
+    @Override
+    public List<TaskMember> selectTaskMember(TaskMember taskMember) {
+        return taskMapper.selectTaskMember(taskMember);
     }
 }

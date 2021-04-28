@@ -96,4 +96,11 @@ public interface TaskMapper {
      * @return
      */
     List<Task> selectJoinedTask(String userName);
+
+    /**
+     * 获取课题成员
+     * @param taskMember
+     * @return
+     */
+    List<TaskMember> selectTaskMember(TaskMember taskMember);
 }

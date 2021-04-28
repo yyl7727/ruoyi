@@ -18,6 +18,16 @@
         <result property="updateTime" column="update_time" />
     </resultMap>
 
+    <resultMap id="taskMemberMap" type="TaskMemberVo">
+        <id     property="Id"          column="id"           />
+        <result property="taskId"      column="task_id"      />
+        <result property="taskName"    column="task_name"    />
+        <result property="taskTeacher" column="task_teacher" />
+        <result property="studentName" column="student_username" />
+        <result property="status"      column="status"       />
+        <result property="isDelete"    column="is_delete"    />
+    </resultMap>
+
     <sql id="baseColumn">
         t.task_id,
         t.task_name,
@@ -101,31 +111,31 @@
     </delete>
 
     <insert id="inviteIntoTask" parameterType="TaskMember">
-        insert into task_member(task_id, student_username, status, is_delete, create_by, create_time) values(#{taskId}, #{studentUserName}, '0', '0', #{createBy}, sysdate())
+        insert into task_member(task_id, student_username, status, is_delete, create_by, create_time) values(#{taskId}, #{studentName}, '0', '0', #{createBy}, sysdate())
     </insert>
 
     <update id="joinTask" parameterType="TaskMember">
         update task_member
         set status = 1, update_by = #{updateBy}, update_time = sysdate()
         where task_id = #{taskId}
-        and student_username = #{studentUserName}
+        and student_username = #{studentName}
     </update>
 
     <delete id="unJoinTask" parameterType="TaskMember">
         delete from task_member
         where task_id = #{taskId}
-          and student_username = #{studentUserName}
+          and student_username = #{studentName}
     </delete>
 
     <update id="joinTask1" parameterType="TaskMember">
-        insert into task_member(task_id, student_username, status, is_delete, create_by, create_time) values(#{taskId}, #{studentUserName}, '1', '0', #{createBy}, sysdate())
+        insert into task_member(task_id, student_username, status, is_delete, create_by, create_time) values(#{taskId}, #{studentName}, '1', '0', #{createBy}, sysdate())
     </update>
 
     <update id="unJoinTask1" parameterType="TaskMember">
         update task_member
         set status = 2, update_by = #{updateBy}, update_time = sysdate()
         where task_id = #{taskId}
-          and student_username = #{studentUserName}
+          and student_username = #{studentName}
     </update>
 
     <select id="selectJoinedTask" parameterType="String" resultMap="taskMap">
@@ -133,5 +143,18 @@
         from task_info t
         left join task_member tm on t.task_id = tm.task_id
         where tm.student_username = #{userName}
+    </select>
+
+    <select id="selectTaskMember" parameterType="TaskMember" resultMap="taskMemberMap">
+        select a.id, a.task_id, b.task_name, b.create_by as task_teacher, a.student_username, a.status, a.is_delete
+        from task_member a
+        left join task_info b on a.task_id = b.task_id
+        where a.is_delete = 0
+        <if test="taskId != null and taskId != ''">
+            and a.task_id = #{taskId}
+        </if>
+        <if test="studentName != null and studentName != ''">
+            and a.student_username = #{studentName}
+        </if>
     </select>
 </mapper>
