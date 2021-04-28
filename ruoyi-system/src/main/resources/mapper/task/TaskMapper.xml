@@ -127,4 +127,11 @@
         where task_id = #{taskId}
           and student_username = #{studentUserName}
     </update>
+
+    <select id="selectJoinedTask" parameterType="String" resultMap="taskMap">
+        select <include refid="baseColumn"/>
+        from task_info t
+        left join task_member tm on t.task_id = tm.task_id
+        where tm.student_username = #{userName}
+    </select>
 </mapper>

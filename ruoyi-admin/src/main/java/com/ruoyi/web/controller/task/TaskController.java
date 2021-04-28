@@ -73,6 +73,12 @@ public class TaskController extends BaseController {
         return AjaxResult.success(taskService.selectTaskById(taskId));
     }
 
+    @GetMapping("getJoinedTask")
+    public AjaxResult getJoinedTask() {
+        String userName = SecurityUtils.getUsername();
+        return AjaxResult.success(taskService.selectJoinedTask(userName));
+    }
+
     @PostMapping("/add")
     @Log(title = "课题管理", businessType = BusinessType.INSERT)
     public AjaxResult addTask(@RequestBody Task task) {

@@ -138,4 +138,14 @@ public class TaskServiceImpl implements ITaskService {
     public int unJoinTask1(TaskMember taskMember) {
         return taskMapper.unJoinTask1(taskMember);
     }
+
+    /**
+     * 获取已加入的课题列表
+     * @param userName 学生用户名
+     * @return
+     */
+    @Override
+    public List<Task> selectJoinedTask(String userName) {
+        return taskMapper.selectJoinedTask(userName);
+    }
 }

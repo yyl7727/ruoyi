@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.WorkLogMapper">
+
+    <resultMap type="WorkLogVo" id="workLogMap">
+        <id     property="workLogId"   column="log_id"      />
+        <result property="taskId"      column="task_id"     />
+        <result property="taskName"    column="task_name"   />
+        <result property="taskTeacher" column="task_teacher"/>
+        <result property="logContent"  column="log_content" />
+        <result property="status"      column="status"      />
+        <result property="isDelete"    column="is_delete"   />
+        <result property="createBy"    column="create_by"   />
+        <result property="createTime"  column="create_time" />
+        <result property="updateBy"    column="update_by"   />
+        <result property="updateTime"  column="update_time" />
+    </resultMap>
+
+    <select id="selectWorkLogList" parameterType="WorkLog" resultMap="workLogMap">
+        select a.log_id,a.task_id,b.task_name,b.create_by as task_teacher,a.log_content,a.status,a.is_delete,a.create_by,a.create_time,a.update_by,a.update_time
+        from work_log a
+        LEFT JOIN task_info b on a.task_id = b.task_id
+        where a.is_delete = 0
+        <if test="workLogId != null and workLogId != ''">
+            and a.log_id = #{workLogId}
+        </if>
+        <if test="createBy != null and createBy != ''">
+            and a.create_by = #{createBy}
+        </if>
+    </select>
+
+    <select id="selectWorkLogById" parameterType="String" resultMap="workLogMap">
+        select a.log_id,a.task_id,b.task_name,b.create_by as task_teacher,a.log_content,a.status,a.is_delete,a.create_by,a.create_time,a.update_by,a.update_time
+        from work_log a
+        LEFT JOIN task_info b on a.task_id = b.task_id
+        where a.is_delete = 0
+        and a.log_id = #{workLogId}
+    </select>
+
+    <select id="selectWorkLogListByUserName" parameterType="String" resultMap="workLogMap">
+        select a.log_id,a.task_id,b.task_name,b.create_by as task_teacher,a.log_content,a.status,a.is_delete,a.create_by,a.create_time,a.update_by,a.update_time
+        from work_log a
+        LEFT JOIN task_info b on a.task_id = b.task_id
+        where a.create_by = #{userName}
+        and a.is_delete = 0
+    </select>
+
+    <select id="selectWorkLogListByTaskId" parameterType="String" resultMap="workLogMap">
+        select a.log_id,a.task_id,b.task_name,b.create_by as task_teacher,a.log_content,a.status,a.is_delete,a.create_by,a.create_time,a.update_by,a.update_time
+        from work_log a
+        LEFT JOIN task_info b on a.task_id = b.task_id
+        where a.task_id = #{taskId}
+        and a.is_delete = 0
+    </select>
+
+    <select id="selectWorkLogListByTaskIds" parameterType="List" resultMap="workLogMap">
+        select a.log_id,a.task_id,b.task_name,b.create_by as task_teacher,a.log_content,a.status,a.is_delete,a.create_by,a.create_time,a.update_by,a.update_time
+        from work_log a
+                 LEFT JOIN task_info b on a.task_id = b.task_id
+        where a.is_delete = 0
+        and a.status = 0
+        and  a.task_id in
+        <foreach item="item" collection="list" separator="," open="(" close=")" index="">
+            #{item.taskId}
+        </foreach>
+    </select>
+
+    <insert id="addWorkLog" parameterType="WorkLog">
+        insert into work_log(TASK_ID, LOG_CONTENT, STATUS, IS_DELETE, CREATE_BY, CREATE_TIME)
+        values (#{taskId}, #{logContent}, #{status}, '0', #{createBy}, sysdate())
+    </insert>
+
+    <update id="updateWorkLog" parameterType="WorkLog">
+        update work_log set
+        <if test="logContent != null and logContent != ''">
+            log_content = #{logContent},
+        </if>
+        <if test="status != null and status != ''">
+            status = #{status},
+        </if>
+        <if test="isDelete != null and isDelete != ''">
+            is_delete = #{isDelete},
+        </if>
+        update_by = #{updateBy},
+        update_time = sysdate()
+        where log_id = #{workLogId}
+    </update>
+
+    <update id="deleteWorkLog">
+        update work_log set is_delete = 1, update_by = #{updateBy}, update_time = sysdate()
+        where log_id in
+        <foreach item="id" collection="ids" separator="," open="(" close=")" index="">
+            #{id}
+        </foreach>
+    </update>
+</mapper>

@@ -89,4 +89,11 @@ public interface TaskMapper {
      * @return 结果
      */
     int unJoinTask1(TaskMember taskMember);
+
+    /**
+     * 获取已加入的课题列表
+     * @param userName
+     * @return
+     */
+    List<Task> selectJoinedTask(String userName);
 }
