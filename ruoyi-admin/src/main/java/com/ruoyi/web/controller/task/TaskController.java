@@ -273,4 +273,11 @@ public class TaskController extends BaseController {
         list = taskService.selectTaskMember(taskMember);
         return getDataTable(list);
     }
+
+    @PostMapping("/member/add")
+    @Log(title = "课题成员", businessType = BusinessType.INSERT)
+    public AjaxResult addTaskMember(@RequestBody TaskMember taskMember) {
+        taskMember.setCreateBy(SecurityUtils.getUsername());
+        return toAjax(taskService.addTaskMember(taskMember));
+    }
 }

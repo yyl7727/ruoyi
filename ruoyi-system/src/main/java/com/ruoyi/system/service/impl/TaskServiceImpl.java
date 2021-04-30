@@ -149,8 +149,18 @@ public class TaskServiceImpl implements ITaskService {
         return taskMapper.selectJoinedTask(userName);
     }
 
+    /**
+     * 获取课题成员
+     * @param taskMember
+     * @return
+     */
     @Override
     public List<TaskMember> selectTaskMember(TaskMember taskMember) {
         return taskMapper.selectTaskMember(taskMember);
+    }
+
+    @Override
+    public int addTaskMember(TaskMember taskMember) {
+        return taskMapper.addTaskMember(taskMember);
     }
 }

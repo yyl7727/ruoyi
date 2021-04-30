@@ -157,4 +157,9 @@
             and a.student_username = #{studentName}
         </if>
     </select>
+
+    <insert id="addTaskMember" parameterType="TaskMember">
+        insert into task_member(task_id, student_username, status, is_delete, create_by, create_time)
+        values(#{taskId}, #{studentName}, '1', '0', #{createBy}, sysdate())
+    </insert>
 </mapper>

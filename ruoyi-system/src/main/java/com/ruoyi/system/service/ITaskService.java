@@ -110,4 +110,11 @@ public interface ITaskService {
      * @return
      */
     List<TaskMember> selectTaskMember(TaskMember taskMember);
+
+    /**
+     * 添加课题成员
+     * @param taskMember
+     * @return
+     */
+    int addTaskMember(TaskMember taskMember);
 }
