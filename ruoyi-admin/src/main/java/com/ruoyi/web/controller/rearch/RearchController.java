@@ -20,6 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 助研信息控制层
+ */
 @RestController
 @RequestMapping("/rearch")
 public class RearchController extends BaseController {
