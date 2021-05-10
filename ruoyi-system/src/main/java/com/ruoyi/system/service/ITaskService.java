@@ -1,7 +1,9 @@
 package com.ruoyi.system.service;
 
+import com.ruoyi.system.domain.Performant;
 import com.ruoyi.system.domain.Task;
 import com.ruoyi.system.domain.TaskMember;
+import com.ruoyi.system.domain.vo.TaskMemberVo;
 
 import java.util.List;
 
@@ -117,4 +119,45 @@ public interface ITaskService {
      * @return
      */
     int addTaskMember(TaskMember taskMember);
+
+    /**
+     * 更新课题成员
+     * @param taskMember
+     * @return
+     */
+    int updateTaskMember(TaskMember taskMember);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    TaskMemberVo selectTaskMemberById(String id);
+
+    /**
+     * 发放绩效
+     * @param performant
+     * @return
+     */
+    int addPerformant(Performant performant);
+
+    /**
+     * 获取所有绩效列表
+     * @param performant
+     * @return
+     */
+    List<Performant> selectPerformantList(Performant performant);
+
+    /**
+     * 获取教师所有课题的绩效列表
+     * @return
+     */
+    List<Performant> selectPerformantListByTaskId();
+
+    /**
+     * 学生获取自己所有的绩效列表
+     * @param username
+     * @return
+     */
+    List<Performant> selectPerformantListByUserName(String username);
 }

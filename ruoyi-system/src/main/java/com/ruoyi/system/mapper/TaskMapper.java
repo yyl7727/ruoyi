@@ -1,7 +1,9 @@
 package com.ruoyi.system.mapper;
 
+import com.ruoyi.system.domain.Performant;
 import com.ruoyi.system.domain.Task;
 import com.ruoyi.system.domain.TaskMember;
+import com.ruoyi.system.domain.vo.TaskMemberVo;
 
 import java.util.List;
 
@@ -110,4 +112,46 @@ public interface TaskMapper {
      * @return
      */
     int addTaskMember(TaskMember taskMember);
+
+    /**
+     * 更新课题成员
+     * @param taskMember
+     * @return
+     */
+    int updateTaskMember(TaskMember taskMember);
+
+    /**
+     * 根据id获取课题成员
+     * @param id
+     * @return
+     */
+    TaskMemberVo selectTaskMemberById(String id);
+
+    /**
+     * 发放绩效
+     * @param performant
+     * @return
+     */
+    int addPerformant(Performant performant);
+
+    /**
+     * 管理员获取所有绩效列表
+     * @param performant
+     * @return
+     */
+    List<Performant> selectPerformantList(Performant performant);
+
+    /**
+     * 教师获取自己创建课题的绩效列表
+     * @param tasks
+     * @return
+     */
+    List<Performant> selectPerformantListByTaskId(List<Task> tasks);
+
+    /**
+     * 学生获取自己所有的绩效列表
+     * @param username
+     * @return
+     */
+    List<Performant> selectPerformantListByUserName(String username);
 }

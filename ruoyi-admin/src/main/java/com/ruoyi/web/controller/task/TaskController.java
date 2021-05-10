@@ -3,23 +3,19 @@ package com.ruoyi.web.controller.task;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.common.core.domain.entity.SysRole;
 import com.ruoyi.common.core.page.TableDataInfo;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.SecurityUtils;
-import com.ruoyi.system.domain.SysNotice;
-import com.ruoyi.system.domain.SysNoticeStatus;
-import com.ruoyi.system.domain.Task;
-import com.ruoyi.system.domain.TaskMember;
+import com.ruoyi.system.domain.*;
 import com.ruoyi.system.service.ISysNoticeService;
 import com.ruoyi.system.service.ISysNoticeStatusService;
+import com.ruoyi.system.service.ISysRoleService;
 import com.ruoyi.system.service.ITaskService;
-import com.sun.javafx.tk.Toolkit;
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.StringJoiner;
 
 /**
  * 课题
@@ -34,6 +30,8 @@ public class TaskController extends BaseController {
     ISysNoticeService noticeService;
     @Autowired
     ISysNoticeStatusService noticeStatusService;
+    @Autowired
+    ISysRoleService sysRoleService;
 
     /**
      * 获取课题列表
@@ -279,5 +277,48 @@ public class TaskController extends BaseController {
     public AjaxResult addTaskMember(@RequestBody TaskMember taskMember) {
         taskMember.setCreateBy(SecurityUtils.getUsername());
         return toAjax(taskService.addTaskMember(taskMember));
+    }
+
+    @PostMapping("/member/update")
+    @Log(title = "课题成员", businessType = BusinessType.UPDATE)
+    public AjaxResult updateTaskMember(@RequestBody TaskMember taskMember) {
+        taskMember.setUpdateBy(SecurityUtils.getUsername());
+        return toAjax(taskService.updateTaskMember(taskMember));
+    }
+
+    @GetMapping("/member/{id}")
+    public AjaxResult getTaskMemberById(@PathVariable String id) {
+        return AjaxResult.success(taskService.selectTaskMemberById(id));
+    }
+
+    @PostMapping("/performant")
+    @Log(title = "发放绩效", businessType = BusinessType.INSERT)
+    public AjaxResult addPerformant(@RequestBody Performant performant) {
+        performant.setCreateBy(SecurityUtils.getUsername());
+        return toAjax(taskService.addPerformant(performant));
+    }
+
+    /**
+     * 获取课题列表
+     */
+    @GetMapping("/performant/list")
+    public TableDataInfo performantList(Performant performant) {
+        startPage();
+        List<Performant> list;
+
+        //获取登录用户的角色
+        Integer roleId = sysRoleService.selectRoleListByUserId(SecurityUtils.getLoginUser().getUser().getUserId()).get(0);
+        SysRole role = sysRoleService.selectRoleById(Long.parseLong(roleId.toString()));
+
+        //管理员显示所有数据
+        if (SecurityUtils.isAdmin(SecurityUtils.getLoginUser().getUser().getUserId())) {
+            list = taskService.selectPerformantList(performant);
+        } else if (role.getRoleName().equals("教师")){
+            list = taskService.selectPerformantListByTaskId();
+        } else {
+            list = taskService.selectPerformantListByUserName(SecurityUtils.getUsername());
+        }
+
+        return getDataTable(list);
     }
 }

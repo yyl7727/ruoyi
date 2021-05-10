@@ -1,8 +1,11 @@
 package com.ruoyi.system.service.impl;
 
+import com.ruoyi.common.utils.SecurityUtils;
+import com.ruoyi.system.domain.Performant;
 import com.ruoyi.system.domain.Rearch;
 import com.ruoyi.system.domain.Task;
 import com.ruoyi.system.domain.TaskMember;
+import com.ruoyi.system.domain.vo.TaskMemberVo;
 import com.ruoyi.system.mapper.RearchMapper;
 import com.ruoyi.system.mapper.SysNoticeMapper;
 import com.ruoyi.system.mapper.TaskMapper;
@@ -159,8 +162,76 @@ public class TaskServiceImpl implements ITaskService {
         return taskMapper.selectTaskMember(taskMember);
     }
 
+    /**
+     * 新增课题成员
+     * @param taskMember
+     * @return
+     */
     @Override
     public int addTaskMember(TaskMember taskMember) {
         return taskMapper.addTaskMember(taskMember);
+    }
+
+    /**
+     * 更新课题成员
+     * @param taskMember
+     * @return
+     */
+    @Override
+    public int updateTaskMember(TaskMember taskMember) {
+        return taskMapper.updateTaskMember(taskMember);
+    }
+
+    /**
+     * 根据id获取课题成员
+     * @param id
+     * @return
+     */
+    @Override
+    public TaskMemberVo selectTaskMemberById(String id) {
+        return taskMapper.selectTaskMemberById(id);
+    }
+
+    /**
+     * 新增绩效
+     * @param performant
+     * @return
+     */
+    @Override
+    public int addPerformant(Performant performant) {
+        return taskMapper.addPerformant(performant);
+    }
+
+    /**
+     * 管理员获取所有绩效列表
+     * @param performant
+     * @return
+     */
+    @Override
+    public List<Performant> selectPerformantList(Performant performant) {
+        return taskMapper.selectPerformantList(performant);
+    }
+
+    /**
+     * 教师获取自己的课题的绩效列表
+     * @return
+     */
+    @Override
+    public List<Performant> selectPerformantListByTaskId() {
+        Task task = new Task();
+        task.setCreateBy(SecurityUtils.getUsername());
+        List<Task> tasks = taskMapper.selectTaskList(task);
+        List<Performant> performantList = taskMapper.selectPerformantListByTaskId(tasks);
+        return performantList;
+    }
+
+    /**
+     * 学生获取自己的绩效列表
+     * @param username
+     * @return
+     */
+    @Override
+    public List<Performant> selectPerformantListByUserName(String username) {
+        return taskMapper.selectPerformantListByUserName(username);
     }
 }
